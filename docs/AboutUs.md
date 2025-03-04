@@ -11,15 +11,16 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Sherwin Ee
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/sherwinee.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[homepage](http://www.comp.nus.edu.sg/~e1293805)]
+[[github](https://github.com/sherwinee)]
+[[portfolio](team/sherwinee.md)]
 
-* Role: Project Advisor
+* Role: TBC
+* Responsibilities: TBC
 
 ### Jane Doe
 
