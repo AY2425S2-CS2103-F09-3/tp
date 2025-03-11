@@ -11,10 +11,7 @@
         "chee-yang": "Chee Yang",
         "sherwin-ee": "Sherwin Ee",
         "kea-harvan-suyanto": "Kea Harvan Suyanto",
-        "parry-chan": "Parry Chan",
-        "johnny-doe": "Johnny Doe",
-        "jean-doe": "Jean Doe",
-        "james-doe": "James Doe"
+        "parry-chan": "Parry Chan"
       },
       "headingKeywords": {}
     },
@@ -134,7 +131,7 @@
       "src": "index.md",
       "title": "",
       "headings": {
-        "addressbook-level-3": "AddressBook Level-3"
+        "listify": "Listify"
       },
       "headingKeywords": {}
     },
