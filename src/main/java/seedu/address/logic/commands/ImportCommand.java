@@ -1,9 +1,5 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -11,21 +7,20 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.CSVParser;
+import seedu.address.logic.parser.CsvParser;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
  * Imports a file ending with CSV format
  */
-public class ImportCommand extends Command{
+public class ImportCommand extends Command {
 
     public static final String COMMAND_WORD = "import";
 
@@ -34,15 +29,10 @@ public class ImportCommand extends Command{
             + "Parameters: import [filename.csv]\n"
             + "Example: " + COMMAND_WORD + " addressbook.csv";
 
-    public static final String MESSAGE_NOT_IMPLEMENTED_YET = "Import command not implemented yet!";
-
-    public static final String MESSAGE_ARGUMENTS = "Filename: %s";
-
     private final Path filePath;
 
     /**
      * @param filePath of the filename to be imported
-     *
      */
     public ImportCommand(Path filePath) {
         this.filePath = filePath;
@@ -53,7 +43,7 @@ public class ImportCommand extends Command{
     public CommandResult execute(Model model) throws CommandException {
         List<Person> importedPersons;
         try {
-            importedPersons = importCSV(filePath.toString());
+            importedPersons = importCsv(filePath.toString());
         } catch (IOException e) {
             throw new CommandException("Error reading CSV file: " + e.getMessage());
         }
@@ -66,6 +56,7 @@ public class ImportCommand extends Command{
         for (Person person : importedPersons) {
             model.addPerson(person);
         }
+
         return new CommandResult("Successfully imported " + importedPersons.size()
                 + " contacts!");
     }
@@ -83,10 +74,27 @@ public class ImportCommand extends Command{
         return filePath.equals(e.filePath);
     }
 
-
-    public static List<Person> importCSV(String filePath) throws IOException {
+    /**
+     * Reads a CSV file from the specified file path and converts its contents into a list of {@code Person} objects.
+     *
+     * <p>Each row in the CSV file must have at least four columns:</p>
+     * <ul>
+     *     <li><b>Name</b> - The person's name (String)</li>
+     *     <li><b>Phone</b> - The person's phone number (String)</li>
+     *     <li><b>Email</b> - The person's email address (String)</li>
+     *     <li><b>Address</b> - The person's address (String)</li>
+     *     <li><b>Tags</b> (Optional) - A list of tags separated by commas or semicolons</li>
+     * </ul>
+     *
+     * <p>Any row missing required fields will be skipped.</p>
+     *
+     * @param filePath The path to the CSV file to be imported.
+     * @return A list of {@code Person} objects parsed from the CSV file.
+     * @throws IOException If an error occurs while reading the file.
+     */
+    public static List<Person> importCsv(String filePath) throws IOException {
         List<Person> persons = new ArrayList<>();
-        List<List<String>> rawData = CSVParser.parseCSV(filePath);
+        List<List<String>> rawData = CsvParser.parseCsv(filePath);
 
         for (List<String> values : rawData) {
             if (values.size() >= 4) {
@@ -99,7 +107,7 @@ public class ImportCommand extends Command{
                 if (values.size() > 4) {
                     String[] tagArray = values.get(4).split("[;,]");
                     for (String tag : tagArray) {
-                        tag = tag.trim(); // Keep alphanumeric
+                        tag = tag.trim();
                         if (!tag.isEmpty()) {
                             tags.add(new Tag(tag));
                         }

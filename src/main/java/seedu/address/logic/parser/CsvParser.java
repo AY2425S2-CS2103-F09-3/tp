@@ -1,13 +1,13 @@
 package seedu.address.logic.parser;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CSVParser {
-    public static List<List<String>> parseCSV(String filePath) throws IOException {
+public class CsvParser {
+    public static List<List<String>> parseCsv(String filePath) throws IOException {
         List<List<String>> data = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             br.readLine(); // Excludes header
@@ -47,8 +47,8 @@ public class CSVParser {
 
     public static void main(String[] args) {
         try {
-            List<List<String>> parsedCSV = parseCSV("data.csv");
-            for (List<String> row : parsedCSV) {
+            List<List<String>> parsedCsv = parseCsv("data.csv");
+            for (List<String> row : parsedCsv) {
                 System.out.println(row);
             }
         } catch (IOException e) {
