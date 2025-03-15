@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.TagsContainsKeywordsPredicate;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -20,16 +20,16 @@ public class FilterTagCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " friend";
 
-    private final String tempPredicate;
+    private final TagsContainsKeywordsPredicate predicate;
 
-    public FilterTagCommand(String tempPredicate) {
-        this.tempPredicate = tempPredicate;
+    public FilterTagCommand(TagsContainsKeywordsPredicate predicate) {
+        this.predicate = predicate;
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        // model.updateFilteredPersonList(tempPredicate);
+        model.updateFilteredPersonList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }
@@ -46,13 +46,13 @@ public class FilterTagCommand extends Command {
         }
 
         FilterTagCommand otherFindCommand = (FilterTagCommand) other;
-        return tempPredicate.equals(otherFindCommand.tempPredicate);
+        return predicate.equals(otherFindCommand.predicate);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("predicate", tempPredicate)
+                .add("predicate", predicate)
                 .toString();
     }
 }
