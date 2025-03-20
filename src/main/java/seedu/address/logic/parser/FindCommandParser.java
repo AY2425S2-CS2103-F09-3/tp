@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.FindCommand;
@@ -28,43 +28,40 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
   public FindCommand parse(String args) throws ParseException {
 
-    ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG, PREFIX_NAME, PREFIX_PHONE);
+    ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_TAG);
 
-    if (arePrefixesPresent(argMultimap, PREFIX_TAG) && arePrefixesPresent(argMultimap, PREFIX_NAME)
-    && arePrefixesPresent(argMultimap, PREFIX_PHONE)) {
+
+    boolean tagPresent = arePrefixesPresent(argMultimap, PREFIX_TAG);
+    boolean namePresent = arePrefixesPresent(argMultimap, PREFIX_NAME);
+    boolean phonePresent = arePrefixesPresent(argMultimap, PREFIX_PHONE);
+    boolean hasExactlyOnePrefix = (tagPresent ? 1 : 0) + (namePresent ? 1 : 0) + (phonePresent ? 1 : 0) == 1;
+    
+
+    if (!hasExactlyOnePrefix) {
       throw new ParseException(
         String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }
-
-    if (!(arePrefixesPresent(argMultimap, PREFIX_TAG) ^ arePrefixesPresent(argMultimap, PREFIX_NAME)
-    ^ arePrefixesPresent(argMultimap, PREFIX_PHONE))) {
-      throw new ParseException(
-        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-    }
-
-    argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME);
-    argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TAG);
-    argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_PHONE);
 
     if (arePrefixesPresent(argMultimap, PREFIX_NAME)) {
-      String[] keywords = argMultimap.getValue(PREFIX_NAME).get().trim().split("\\s+");
-      if (keywords.length == 0) {
+      List<String> keywords = argMultimap.getAllValues(PREFIX_NAME);
+      if (keywords.isEmpty()) {
         throw new ParseException(
           String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
       }
 
-      return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+      return new FindCommand(new NameContainsKeywordsPredicate(keywords));
     } else if (arePrefixesPresent(argMultimap, PREFIX_TAG)) {
-      String[] keywords = argMultimap.getValue(PREFIX_TAG).get().trim().split("\\s+");
-      if (keywords.length == 0) {
+      List<String> keywords = argMultimap.getAllValues(PREFIX_TAG);
+      if (keywords.isEmpty()) {
         throw new ParseException(
           String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
       }
 
-      return new FindCommand(new TagsContainsKeywordsPredicate(Arrays.asList(keywords)));
+      return new FindCommand(new TagsContainsKeywordsPredicate(keywords));
     } else if (arePrefixesPresent(argMultimap, PREFIX_PHONE)) {
-      String[] keywords = argMultimap.getValue(PREFIX_PHONE).get().trim().split("\\s+");
-      if (keywords.length == 0) {
+      List<String> keywords = argMultimap.getAllValues(PREFIX_PHONE);
+      if (keywords.isEmpty()) {
         throw new ParseException(
           String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
       }
@@ -75,7 +72,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
       }
 
-      return new FindCommand(new PhoneNumberContainsKeywordsPredicate(Arrays.asList(keywords)));
+      return new FindCommand(new PhoneNumberContainsKeywordsPredicate(keywords));
     } else {
       throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }

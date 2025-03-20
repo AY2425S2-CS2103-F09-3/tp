@@ -76,4 +76,24 @@ public class ArgumentMultimap {
             throw new ParseException(Messages.getErrorMessageForDuplicatePrefixes(duplicatedPrefixes));
         }
     }
+
+    /**
+     * Returns a string representation of this ArgumentMultimap.
+     * The string representation consists of a list of key-value mappings in the order they are stored.
+     * Each mapping is rendered as a prefix followed by its associated argument values.
+     * @return a string representation of this ArgumentMultimap
+     */
+     @Override
+     public String toString() {
+         StringBuilder sb = new StringBuilder("ArgumentMultimap{");
+         if (!argMultimap.isEmpty()) {
+             argMultimap.forEach((prefix, values) -> 
+                 sb.append("\n  ")
+                   .append(prefix)
+                   .append(" -> ")
+                   .append(values));
+         }
+         sb.append(argMultimap.isEmpty() ? "}" : "\n}");
+         return sb.toString();
+     }
 }
