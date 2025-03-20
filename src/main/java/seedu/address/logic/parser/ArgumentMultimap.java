@@ -87,7 +87,7 @@ public class ArgumentMultimap {
      public String toString() {
          StringBuilder sb = new StringBuilder("ArgumentMultimap{");
          if (!argMultimap.isEmpty()) {
-             argMultimap.forEach((prefix, values) -> 
+             argMultimap.forEach((prefix, values) ->
                  sb.append("\n  ")
                    .append(prefix)
                    .append(" -> ")
