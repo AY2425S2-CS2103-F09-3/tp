@@ -1,6 +1,5 @@
 package seedu.address.model.person;
 
-import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
 
 import java.util.List;
@@ -30,7 +29,8 @@ public class PhoneNumberContainsKeywordsPredicate implements Predicate<Person> {
             return false;
         }
 
-        PhoneNumberContainsKeywordsPredicate otherPhoneNumberContainsKeywordsPredicate = (PhoneNumberContainsKeywordsPredicate) other;
+        PhoneNumberContainsKeywordsPredicate otherPhoneNumberContainsKeywordsPredicate =
+                (PhoneNumberContainsKeywordsPredicate) other;
         return keywords.equals(otherPhoneNumberContainsKeywordsPredicate.keywords);
     }
 
