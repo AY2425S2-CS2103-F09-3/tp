@@ -21,7 +21,8 @@ public class FindCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names or tags contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: EITHER " + PREFIX_NAME + "KEYWORD [MORE KEYWORDS] OR " + PREFIX_TAG + "KEYWORD [MORE KEYWORDS] (cannot mix name and tag searches) OR [/p] KEYWORD [MORE_KEYWORDS]...\n"
+            + "Parameters: EITHER " + PREFIX_NAME + "KEYWORD [MORE KEYWORDS] OR " + PREFIX_TAG
+            + "KEYWORD [MORE KEYWORDS] (cannot mix name and tag searches) OR [/p] KEYWORD [MORE_KEYWORDS]...\n"
             + "Example for name search: " + COMMAND_WORD + " " + PREFIX_NAME + "alice bob\n"
             + "Example for tag search: " + COMMAND_WORD + " " + PREFIX_TAG + "friends colleagues"
             + "Example for phone search: " + COMMAND_WORD + " /p 81293829";
