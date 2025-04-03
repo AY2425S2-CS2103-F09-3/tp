@@ -2,8 +2,10 @@
 !include style.puml
 skinparam ArrowFontStyle plain
 
+box "Logic" LOGIC_COLOR_T1
 participant ":SortCommandParser" as SortParser LOGIC_COLOR
 participant "f:SortCommand" as Sort LOGIC_COLOR
+end box
 
 -> SortParser: parse("asc")
 activate SortParser
