@@ -1,0 +1,62 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box "Logic" LOGIC_COLOR_T1
+participant ":ExportCommand" as ExportCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box "Storage" STORAGE_COLOR_T1
+participant ":CsvAddressBookStorage" as CsvAddressBookStorage STORAGE_COLOR
+participant ":CsvSerializableAddressBook" as CsvSerializableAddressBook STORAGE_COLOR
+participant ":CsvAdaptedPerson" as CsvAdaptedPerson STORAGE_COLOR
+end box
+
+-> ExportCommand: execute(model)
+activate ExportCommand
+
+create CsvAddressBookStorage
+ExportCommand -> CsvAddressBookStorage: new CsvAddressBookStorage("contacts.csv")
+activate CsvAddressBookStorage
+CsvAddressBookStorage --> ExportCommand
+deactivate CsvAddressBookStorage
+
+ExportCommand -> CsvAddressBookStorage: saveAddressBook(addressBook)
+activate CsvAddressBookStorage
+
+create CsvSerializableAddressBook
+CsvAddressBookStorage -> CsvSerializableAddressBook: new CsvSerializableAddressBook(addressBook)
+activate CsvSerializableAddressBook
+
+loop for each person
+    create CsvAdaptedPerson
+    CsvSerializableAddressBook -> CsvAdaptedPerson: new CsvAdaptedPerson(p)
+    activate CsvAdaptedPerson
+    CsvAdaptedPerson --> CsvSerializableAddressBook: csv adapted person
+    deactivate CsvAdaptedPerson
+end
+
+deactivate CsvSerializableAddressBook
+CsvAddressBookStorage -> CsvSerializableAddressBook: getPersons()
+activate CsvSerializableAddressBook
+CsvSerializableAddressBook --> CsvAddressBookStorage: List<CsvAdaptedPerson> persons
+deactivate CsvSerializableAddressBook
+
+CsvAddressBookStorage --> ExportCommand: file exported and saved
+deactivate CsvAddressBookStorage
+destroy CsvSerializableAddressBook
+destroy CsvAdaptedPerson
+
+
+create CommandResult
+ExportCommand -> CommandResult: new CommandResult(success msg)
+activate CommandResult
+
+CommandResult --> ExportCommand: r
+deactivate CommandResult
+
+<-- ExportCommand: r
+deactivate ExportCommand
+destroy CsvAddressBookStorage
+@enduml
