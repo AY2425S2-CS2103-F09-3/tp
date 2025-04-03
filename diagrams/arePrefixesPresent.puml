@@ -1,0 +1,25 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+group sd [find if prefix "n/" is present]
+participant ":FindCommandParser" as FindParser LOGIC_COLOR
+participant "a:ArgumentMultiMap" as MapInstance LOGIC_COLOR
+participant "o:Optional" as Optional LOGIC_COLOR
+
+activate FindParser
+FindParser -> FindParser: arePrefixesPresent(a, "n/")
+activate FindParser
+FindParser -> MapInstance: getValue("n/")
+activate MapInstance
+MapInstance --> FindParser: o
+deactivate MapInstance
+FindParser -> Optional: isPresent()
+activate Optional
+Optional --> FindParser: true
+deactivate Optional
+deactivate MapInstance
+deactivate FindParser
+deactivate FindParser
+end
+@enduml

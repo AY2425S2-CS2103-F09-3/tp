@@ -1,0 +1,46 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+participant ":FindCommandParser" as FindParser LOGIC_COLOR
+participant " <<class>>\nArgumentMultiMap" as Map LOGIC_COLOR
+participant "a:ArgumentMultiMap" as MapInstance LOGIC_COLOR
+participant "p:NameContainsKeywordPredicate" as Predicate LOGIC_COLOR
+participant "f:FindCommand" as Find LOGIC_COLOR
+
+-> FindParser: parse("n/John")
+activate FindParser
+FindParser -> Map: tokenize("n/John", "n/", "p/", "r/", "t/")
+activate Map
+create MapInstance
+Map -> MapInstance
+activate MapInstance
+MapInstance -> Map
+Map --> FindParser: a
+deactivate Map
+
+alt only one prefix present
+
+ref over FindParser, MapInstance: [find if prefix "n/" is present]
+
+alt prefix "n/" is present
+
+FindParser -> MapInstance: getAllValues("n/")
+MapInstance --> FindParser: ["John"]
+destroy MapInstance
+deactivate MapInstance
+create Predicate
+FindParser -> Predicate: NameContainsKeywordPredicate(["John"])
+activate Predicate
+Predicate --> FindParser
+deactivate Predicate
+create Find
+FindParser -> Find: FindCommand(p)
+activate Find
+Find --> FindParser:
+deactivate Find
+<-- FindParser: f
+deactivate FindParser
+
+end
+@enduml
