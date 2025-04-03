@@ -1,0 +1,106 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box "Logic" LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":ImportCommandParser" as ImportCommandParser LOGIC_COLOR
+participant "i:ImportCommand" as ImportCommand LOGIC_COLOR
+participant "<<class>>\n CsvParser" as CsvParser LOGIC_COLOR
+participant "<<class>>\n VcfParser" as VcfParser LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "m:Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("import addressbook.csv")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("import addressbook.csv")
+activate AddressBookParser
+
+create ImportCommandParser
+AddressBookParser -> ImportCommandParser
+activate ImportCommandParser
+
+ImportCommandParser --> AddressBookParser
+deactivate ImportCommandParser
+
+AddressBookParser -> ImportCommandParser : parse("addressbook.csv")
+activate ImportCommandParser
+
+create ImportCommand
+ImportCommandParser -> ImportCommand
+activate ImportCommand
+
+ImportCommand --> ImportCommandParser
+deactivate ImportCommand
+ImportCommandParser --> AddressBookParser: i
+deactivate ImportCommandParser
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ImportCommandParser -[hidden]-> AddressBookParser
+destroy ImportCommandParser
+AddressBookParser --> LogicManager : i
+deactivate AddressBookParser
+
+LogicManager -> ImportCommand : execute(m)
+activate ImportCommand
+
+ImportCommand -> ImportCommand : parseFile(filePath, errors)
+activate ImportCommand #DarkGray
+
+alt .csv file
+    ImportCommand -> CsvParser : parseCsv(filePath)
+    activate CsvParser
+    CsvParser --> ImportCommand : data
+    deactivate CsvParser
+    'Hidden arrow to position the destroy marker below the end of the activation bar.
+    CsvParser -[hidden]-> ImportCommand
+    destroy CsvParser
+
+    ImportCommand -> ImportCommand : importCsv(filePath, errors)
+    activate ImportCommand #FFBBBB
+    deactivate ImportCommand
+else .vcf file
+    ImportCommand -> VcfParser : parseVcf(filePath)
+    activate VcfParser
+    VcfParser --> ImportCommand : persons
+    deactivate VcfParser
+    'Hidden arrow to position the destroy marker below the end of the activation bar.
+    VcfParser -[hidden]-> ImportCommand
+    destroy VcfParser
+end
+
+ImportCommand --> ImportCommand : persons
+deactivate ImportCommand
+
+ImportCommand -> ImportCommand : addPersonsToModel(model, persons, startingRowNumber)
+activate ImportCommand #DarkGray
+
+loop for each person in persons
+    ImportCommand -> Model : addPerson(person)
+    activate Model
+
+    Model --> ImportCommand
+    deactivate Model
+end
+
+
+deactivate ImportCommand
+
+create CommandResult
+ImportCommand -> CommandResult
+activate CommandResult
+CommandResult --> ImportCommand : r
+deactivate CommandResult
+
+ImportCommand --> LogicManager : r
+deactivate ImportCommand
+
+[<-- LogicManager
+deactivate LogicManager
+@enduml
