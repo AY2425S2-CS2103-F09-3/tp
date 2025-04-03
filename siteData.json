@@ -51,6 +51,8 @@
         "storage-component": "Storage component",
         "common-classes": "Common classes",
         "implementation": "Implementation",
+        "sort-command": "Sort command",
+        "contact-command": "Contact command",
         "import-feature": "Import feature"
       },
       "headingKeywords": {}

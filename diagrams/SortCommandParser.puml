@@ -1,0 +1,29 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+participant ":SortCommandParser" as SortParser LOGIC_COLOR
+participant "f:SortCommand" as Sort LOGIC_COLOR
+
+-> SortParser: parse("asc")
+activate SortParser
+
+alt input is "asc"
+    SortParser -> Sort: SortCommand(true)
+    activate Sort
+    Sort --> SortParser
+    deactivate Sort
+    <-- SortParser: f
+    deactivate SortParser
+else input is "desc"
+    SortParser -> Sort: SortCommand(false)
+    activate Sort
+    Sort --> SortParser
+    deactivate Sort
+    <-- SortParser: f
+    deactivate SortParser
+else input is invalid
+    SortParser -> SortParser: throw ParseException
+    deactivate SortParser
+end
+@enduml

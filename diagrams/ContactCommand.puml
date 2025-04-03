@@ -1,0 +1,47 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+participant "User" as User
+participant ":ContactCommand" as ContactCommand LOGIC_COLOR
+participant "m:Model" as Model LOGIC_COLOR
+participant "List<Person>" as PersonList LOGIC_COLOR
+participant "p:Person" as Person LOGIC_COLOR
+participant "updatedPerson:Person" as UpdatedPerson LOGIC_COLOR
+
+User -> ContactCommand: execute(m)
+activate ContactCommand
+
+ContactCommand -> Model: getFilteredPersonList()
+activate Model
+Model --> ContactCommand: lastShownList
+deactivate Model
+
+alt targetIndex is invalid
+    ContactCommand -> User: throws CommandException
+    deactivate ContactCommand
+else targetIndex is valid
+    ContactCommand -> PersonList: get(targetIndex)
+    activate PersonList
+    PersonList --> ContactCommand: p
+    deactivate PersonList
+
+    ContactCommand -> Person: markAsContacted()
+    activate Person
+    Person --> ContactCommand: updatedPerson
+    deactivate Person
+
+    ContactCommand -> Model: setPerson(p, updatedPerson)
+    activate Model
+    Model --> ContactCommand
+    deactivate Model
+
+    ContactCommand -> Model: updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)
+    activate Model
+    Model --> ContactCommand
+    deactivate Model
+
+    ContactCommand -> User: CommandResult (Success message)
+    deactivate ContactCommand
+end
+@enduml
