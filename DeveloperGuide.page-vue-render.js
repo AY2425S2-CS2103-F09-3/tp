@@ -236,7 +236,7 @@ with(this){return _c('h4',{attrs:{"id":"design-considerations"}},[_v("Design con
 with(this){return _c('p',[_c('strong',[_v("Aspect: How to handle duplicate entries:")])])}
 },function anonymous(
 ) {
-with(this){return _c('ul',[_c('li',[_c('p',[_c('strong',[_v("Alternative 1 (current choice):")]),_v(" Skip duplicates and report them to the user.")]),_v(" "),_c('ul',[_c('li',[_v("Pros: Prevents accidental data duplication and provides clear feedback about which entries were skipped.")]),_v(" "),_c('li',[_v("Cons: Requires additional error handling and reporting logic.")])])]),_v(" "),_c('li',[_c('p',[_c('strong',[_v("Alternative 2:")]),_v(" Allow duplicates to be added.")]),_v(" "),_c('ul',[_c('li',[_v("Pros: Simpler implementation.")]),_v(" "),_c('li',[_v("Cons: Could lead to data integrity issues.")])])])])}
+with(this){return _c('ul',[_c('li',[_c('p',[_c('strong',[_v("Alternative 1 (current choice):")]),_v(" Skip duplicates and report them to the user.")]),_v(" "),_c('ul',[_c('li',[_v("Pros: Prevents accidental data duplication and provides clear feedback about which entries were skipped.")]),_v(" "),_c('li',[_v("Cons: Requires additional error handling and reporting logic.")]),_v(" "),_c('li',[_v("The app identifies duplicate contacts by checking if either the Phone Number, Email, or both are exactly the same.")])])]),_v(" "),_c('li',[_c('p',[_c('strong',[_v("Alternative 2:")]),_v(" Allow duplicates to be added.")]),_v(" "),_c('ul',[_c('li',[_v("Pros: Simpler implementation.")]),_v(" "),_c('li',[_v("Cons: Could lead to data integrity issues.")])])])])}
 },function anonymous(
 ) {
 with(this){return _c('p',[_c('strong',[_v("Aspect: File location:")])])}
@@ -530,6 +530,6 @@ with(this){return _c('h2',{attrs:{"id":"appendix-planned-enhancements"}},[_c('st
 with(this){return _c('ul',[_c('li',[_v("(This section will be done after PE-D bug reports have been received).")])])}
 },function anonymous(
 ) {
-with(this){return _c('footer',[_c('div',{staticClass:"text-center"},[_c('small',[_v("["),_c('span',[_c('strong',[_v("Powered by")])]),_v(" "),_c('img',{attrs:{"src":"https://markbind.org/favicon.ico","width":"30"}}),_v(" "),_c('a',{attrs:{"href":"https://markbind.org/"}},[_v("MarkBind 5.6.0")]),_v(", generated on Fri, 4 Apr 2025, 9:12:57 GMT+8]")])])])}
+with(this){return _c('footer',[_c('div',{staticClass:"text-center"},[_c('small',[_v("["),_c('span',[_c('strong',[_v("Powered by")])]),_v(" "),_c('img',{attrs:{"src":"https://markbind.org/favicon.ico","width":"30"}}),_v(" "),_c('a',{attrs:{"href":"https://markbind.org/"}},[_v("MarkBind 5.6.0")]),_v(", generated on Fri, 4 Apr 2025, 9:13:19 GMT+8]")])])])}
 }];
   
