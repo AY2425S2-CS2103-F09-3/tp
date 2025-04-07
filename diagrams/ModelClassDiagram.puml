@@ -20,7 +20,7 @@ Class Name
 Class Phone
 Class Tag
 Class Role
-Class Contact
+Class "Optional<LocalDateTime>"
 
 Class I #FFFFFF
 }
@@ -45,8 +45,7 @@ Person *--> Email
 Person *--> Address
 Person *--> Role
 Person *--> "*" Tag
-Person *--> "*" Contact
-
+Person *--> "Optional<LocalDateTime>": Last contacted at >
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I
 

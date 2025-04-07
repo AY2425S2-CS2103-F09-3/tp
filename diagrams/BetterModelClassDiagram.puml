@@ -18,4 +18,6 @@ Person *--> Name
 Person *--> Phone
 Person *--> Email
 Person *--> Address
+Person *--> Role
+Person *--> "0..1" "Optional<LocalDateTime>": Last contacted at >
 @enduml
