@@ -38,7 +38,7 @@ public class ImportCommand extends Command {
     public static final String IMPORT_DIR_PREFIX = "imports/";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Imports all data from the given file name located at "
             + getImportsDirAbsolutePath()
-            + "\nFile names are case-sensitive.\n "
+            + "\nFile names are case-sensitive.\n"
             + "Parameters: FILENAME (must end with .csv or .vcf)\n"
             + "Example: " + COMMAND_WORD + " addressbook.csv";
 

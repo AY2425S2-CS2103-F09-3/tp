@@ -571,9 +571,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.	User requests to export contacts to a CSV file.
-2.	Listify exports all contacts to a CSV file.
-3.	Listify shows a success message with the saved file location.<br>
+1.  User requests to export contacts to a CSV file.
+2.  Listify exports all contacts to a CSV file.
+3.  Listify shows a success message with the saved file location.<br>
+    
     Use case ends.
 
 **Extensions**
@@ -600,11 +601,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 Similar to Export contacts to CSV use case, except for the file type.
 
 **MSS**
-1.	User requests to export contacts to a VCF file.
-2.	Listify exports all contacts to a VCF file.
-3.	Listify shows a success message with the saved file location.<br>
+1.  User requests to export contacts to a VCF file.
+2.  Listify exports all contacts to a VCF file.
+3.  Listify shows a success message with the saved file location.<br>
+    
     Use case ends.
-
 
 **Extensions**
 * 1a. The provided filename is invalid
@@ -1149,7 +1150,7 @@ testers are expected to do more *exploratory* testing.
        Expected: Contacts with tag `friend` are deleted regardless of case.
 
 
-
+---
 ## **Appendix: Planned Enhancements**
 
 * Team size: 5
