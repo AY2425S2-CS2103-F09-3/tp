@@ -72,6 +72,10 @@
         "exporting-contacts": "Exporting contacts",
         "sort-contacts": "Sort contacts",
         "mark-person-as-contacted": "Mark person as contacted",
+        "adding-a-person": "Adding a person",
+        "editing-a-person": "Editing a person",
+        "locating-persons": "Locating persons",
+        "deleting-multiple-people-with-the-same-tag": "Deleting multiple people with the same tag",
         "appendix-planned-enhancements": "Appendix: Planned Enhancements"
       },
       "headingKeywords": {}
