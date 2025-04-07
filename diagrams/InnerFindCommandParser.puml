@@ -1,12 +1,9 @@
 @startuml
-!include style.puml
-skinparam ArrowFontStyle plain
-
-participant ":FindCommandParser" as FindParser LOGIC_COLOR
-participant " <<class>>\nArgumentMultiMap" as Map LOGIC_COLOR
-participant "a:ArgumentMultiMap" as MapInstance LOGIC_COLOR
-participant "p:NameContainsKeywordPredicate" as Predicate LOGIC_COLOR
-participant "f:FindCommand" as Find LOGIC_COLOR
+participant ":FindCommandParser" as FindParser
+participant " <<class>>\nArgumentMultiMap" as Map
+participant "a:ArgumentMultiMap" as MapInstance
+participant "p:NameContainsKeywordPredicate" as Predicate
+participant "f:FindCommand" as Find
 
 -> FindParser: parse("n/John")
 activate FindParser
@@ -18,6 +15,12 @@ activate MapInstance
 MapInstance -> Map
 Map --> FindParser: a
 deactivate Map
+
+loop for prefix in prefixes
+
+ref over FindParser, MapInstance: [find if prefix is present]
+
+end
 
 alt only one prefix present
 
@@ -40,7 +43,11 @@ activate Find
 Find --> FindParser:
 deactivate Find
 <-- FindParser: f
+else exception
+<-- FindParser: ParseException
 deactivate FindParser
+
+end
 
 end
 @enduml
