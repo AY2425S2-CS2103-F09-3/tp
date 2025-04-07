@@ -114,8 +114,8 @@
     },
     {
       "src": "UserGuide.md",
+      "title": "User Guide",
       "headings": {
-        "user-layout-default-md-title-and-quot-user-guide-and-quot-pagenav-3": "---user\nlayout: default.md\ntitle: &quot;User Guide&quot;\npageNav: 3",
         "listify-user-guide": "Listify User Guide",
         "quick-start": "Quick start",
         "features": "Features",
