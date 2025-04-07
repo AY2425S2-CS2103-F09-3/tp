@@ -70,6 +70,8 @@
         "saving-data": "Saving data",
         "importing-data": "Importing data",
         "exporting-contacts": "Exporting contacts",
+        "sort-contacts": "Sort contacts",
+        "mark-person-as-contacted": "Mark person as contacted",
         "appendix-planned-enhancements": "Appendix: Planned Enhancements"
       },
       "headingKeywords": {}
